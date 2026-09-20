@@ -1,0 +1,40 @@
+<h3>Forum Categories</h3>
+<p>Add and remove forum categories here!</p>
+<form action="/backend/add/forumcat" method="post">
+    <div class="d-flex justify-content-center" style="margin-bottom: 1em;">
+        <input type="text" name="forumname" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em;" placeholder="Forum name... (Ex: Resources)" required>
+        <input type="text" name="forumlink" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em;" placeholder="Forum link... (Ex: resources)" required>
+    </div>
+    <div class="justify-content-center" style="margin-bottom: 1em;">
+        <input type="text" name="forumimageurl" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" placeholder="Forum image link... (must end in .png or .jpg)" required>
+        <textarea name="forumdesc" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="5" placeholder="Forum description..." required></textarea>
+        <textarea name="forumplaceholder" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="3" placeholder="Forum placeholder..."></textarea>
+    </div>
+    <button type="submit" class="btn btn-theme">Create Forum Category</button>
+</form>
+<hr>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Forum Category Name</th>
+            <th scope="col">Forum Category Link</th>
+            <th scope="col">Forum Category Unique Id</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.forums.forEach(function(forum) { %>
+                <tr>
+                    <td><%= forum.name %></td>
+                    <td><%= forum.link %></td>
+                    <td><%= forum.uniqueid %></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/forumcat/<%= forum.uniqueid %>">Delete</a>
+                        <a class="btn btn-outline-primary btn-sm" href="/update/forumcat/<%= forum.uniqueid %>">Update</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

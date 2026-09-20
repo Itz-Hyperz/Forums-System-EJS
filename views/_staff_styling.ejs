@@ -1,0 +1,85 @@
+<h3>Website Styling</h3>
+<p>Change the overall website styling here!</p>
+<hr>
+<div class="desktop">
+    <form action="/backend/update/styling" method="post">
+        <div class="form-group justify-content-center align-items-center">
+            <div class="d-flex justify-content-center">
+                <div class="colorpickersection">
+                    <label for="themeone">Color One:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themeone" value="<%= site.themeone %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Two:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themetwo" value="<%= site.themetwo %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Three:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themethree" value="<%= site.themethree %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Four:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themefour" value="<%= site.themefour %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Text:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themetext" value="<%= site.themetext %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Fallback:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="fallbacktext" value="<%= site.fallbacktext %>" required>
+                    <br>
+                </div>
+            </div>
+            <a href="/backend/reset/styling" class="btn btn-outline-warning" style="margin-left: 0.4em; margin-right: 0.4em; margin-bottom: 1em;">Reset to Default</a>
+            <button type="submit" class="btn btn-theme" style="margin-left: 0.4em; margin-right: 0.4em; margin-bottom: 1em;">Save All Changes</button>
+        </div>
+    </form>
+</div>
+<div class="mobile">
+    <form action="/backend/update/styling" method="post">
+        <div class="form-group justify-content-center align-items-center">
+            <div class="d-flex justify-content-center">
+                <div class="colorpickersection">
+                    <label for="themeone">Color One:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themeone" value="<%= site.themeone %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Two:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themetwo" value="<%= site.themetwo %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Three:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themethree" value="<%= site.themethree %>" required>
+                    <br>
+                </div>
+            </div>
+            <div class="d-flex justify-content-center">
+                <div class="colorpickersection">
+                    <label for="themeone">Color Four:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themefour" value="<%= site.themefour %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Color Text:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="themetext" value="<%= site.themetext %>" required>
+                    <br>
+                </div>
+                <div class="colorpickersection">
+                    <label for="themeone">Fallback:</label>
+                    <input type="color" class="form-control colorinput themefour themetextborder" name="fallbacktext" value="<%= site.fallbacktext %>" required>
+                    <br>
+                </div>
+            </div>
+            <a href="/backend/reset/styling" class="btn btn-outline-warning" style="margin-left: 0.4em; margin-right: 0.4em; margin-bottom: 1em;">Reset to Default</a>
+            <button type="submit" class="btn btn-theme" style="margin-left: 0.4em; margin-right: 0.4em; margin-bottom: 1em;">Save All Changes</button>
+        </div>
+    </form>
+</div>

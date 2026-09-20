@@ -1,0 +1,123 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Activity</title>
+        <meta property="og:title" content="<%= site.title %> - Activity" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo text-start defaultborderradius text-center" style="padding: 2em;">
+            <div class="accountbanner themetextborder" style="background-image: url('/images/banner_<%= certain.user.userid %>.png');">
+                <img src="/images/avatar_<%= certain.user.userid %>.png" alt="" class="accountimage" loading="lazy">
+            </div>
+            <h2 style="margin-bottom: 0.4em;"><%= certain.user.usertag %></h2>
+            <p><%- certain.user.aboutme %></p>
+        </div>
+        <br>
+        <div class="container themetwo text-start defaultborderradius text-center" style="padding: 2em; margin-bottom: 3em;">
+            <h3 class="text-start">All Activity</h3>
+            <p class="text-start">Below you can view <%= certain.user.usertag %>'s latest activity...</p>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="themefour homegroup defaultborderradius">
+                        <h3 class="themetext">Topics</h3>
+                        <hr>
+                        <% if(certain.user.topics[0]) { %>
+                            <ul class="homeul text-start">
+                                <% certain.user.topics.forEach(function(topic) { %>
+                                    <li class="homelist">
+                                        <a href="/forums/c/<%= topic.catid %>/t/<%= topic.link %>"><%= topic.name.slice(0, 19) %>...</a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No topics to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themefour homegroup defaultborderradius">
+                        <h3 class="themetext">Comments</h3>
+                        <hr>
+                        <% if(certain.user.comments[0]) { %>
+                            <ul class="homeul text-start">
+                                <% certain.user.comments.forEach(function(comment) { %>
+                                    <li class="homelist">
+                                        <a href="/forums/c/<%= comment.catlink %>/t/<%= comment.topicid %>"><%- comment.datetime.slice(0, 19) %>...</a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No comments to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themefour homegroup defaultborderradius">
+                        <h3 class="themetext">Updates</h3>
+                        <hr>
+                        <% if(certain.user.updates[0]) { %>
+                            <ul class="homeul text-start">
+                                <% certain.user.updates.forEach(function(update) { %>
+                                    <li class="homelist">
+                                        <a href="#"><%= update.content.slice(0, 19) %>...</a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No updates to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themefour homegroup defaultborderradius">
+                        <h3 class="themetext">Punishments</h3>
+                        <hr>
+                        <% if(certain.user.punishments[0]) { %>
+                            <ul class="homeul text-start">
+                                <% certain.user.punishments.forEach(function(punishment) { %>
+                                    <li class="homelist">
+                                        <a href="#"><%= punishment.content.slice(0, 19) %>...</a>
+                                    </li>
+                                <% }); %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No punishments to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <% if(certain.myAccount) { %>
+            <br>
+            <div class="container themetwo text-start defaultborderradius" style="padding: 2em; margin-bottom: 3em;">
+                <h2>Account Customization</h2>
+                <p class="darkertext" style="text-align: start !important;">Avatar and username will update automatically.</p>
+                <br>
+                <form action="/backend/update/aboutme" method="post">
+                    <label for="aboutme">Birthday: (<%= config.birthday_date_format %>) <span class="darkertext"><%= config.timezone %></span></label>
+                    <input type="text" name="birthday" class="form-control themetwo forumcontrol defaultborderradius themetextborder" style="border-width: 2px;" required placeholder="Date of birth by MM-DD-YYYY" value="<%= certain.user.birthday %>">
+                    <br>
+                    <label for="aboutme">Banner Image: (PNG only)</label>
+                    <input type="text" name="banner" class="form-control themetwo forumcontrol defaultborderradius themetextborder" style="border-width: 2px;" required placeholder="Image URL of your new banner." value="<%= d %>images/banner_<%= certain.user.userid %>.png">
+                    <br>
+                    <label for="aboutme">About Me: (supports markdown)</label>
+                    <textarea class="comment defaultborderradius themetextborder" name="aboutme" rows="10" placeholder="Enter a description of yourself here..." required><%= certain.user.aboutmeraw %></textarea>
+                    <br>
+                    <div class="commentbuttons">
+                        <button type="submit" class="btn btn-theme">Save Changes</button>
+                    </div>
+                </form>
+            </div>
+        <% }; %>
+        <%- include('_footer') %>
+    </body>
+</html>

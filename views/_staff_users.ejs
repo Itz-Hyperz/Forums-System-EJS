@@ -1,0 +1,85 @@
+<h3>User Management</h3>
+<p>Below you will find all user management settings!</p>
+<hr>
+<div class="customDiv">
+    <h4>Staff Management</h4>
+    <p>Add and remove staff users here!</p>
+    <form action="/backend/add/staff" method="post">
+        <input type="text" name="userid" class="form-control themetwo defaultborderradius forumcontrol text-center" placeholder="Staff User Id..." style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" required>
+        <button class="btn btn-theme">Create Staff Member</button>
+    </form>
+    <br>
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Staff User Id</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.staff.forEach(function(user) { %>
+                <tr>
+                    <td><%= user.userid %></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/staff/<%= user.userid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<div class="customDiv">
+    <h4>Banned User Management</h4>
+    <p>Add and remove users from the banned list here!</p>
+    <form action="/backend/ban" method="post">
+        <input type="text" name="userid" class="form-control themetwo defaultborderradius forumcontrol text-center" placeholder="Banned User Id..." style="width: 60%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" required>
+        <button class="btn btn-outline-danger">Ban Member</button>
+    </form>
+    <br>
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Banned User Id</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.bans.forEach(function(user) { %>
+                <tr>
+                    <td><%= user.userid %></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/unban/<%= user.userid %>">Unban</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<div class="customDiv">
+    <h4>All Users</h4>
+    <p>View all users below here!</p>
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">User Tag</th>
+            <th scope="col">User Id</th>
+            <th scope="col">User Birthday</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.users.forEach(function(user) { %>
+                <tr>
+                    <td><%= user.usertag %></td>
+                    <td><%= user.userid %></td>
+                    <td><%= user.birthday %></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/user/<%= user.userid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

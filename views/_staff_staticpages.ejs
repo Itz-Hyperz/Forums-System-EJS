@@ -1,0 +1,33 @@
+<h3>Static Pages</h3>
+<p>Alter and add new static pages here!</p>
+<form action="/backend/add/staticpage" method="post">
+    <div class="justify-content-center" style="margin-bottom: 1em;">
+        <input type="text" name="pagename" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" placeholder="Custom Page Name" required>
+        <input type="text" name="pageurl" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" placeholder="Custom Page URL" required>
+        <textarea name="pagecontent" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="10" placeholder="Custom Page Content (supports markdown)" required></textarea>
+    </div>
+    <button type="submit" class="btn btn-theme">Create Static Page</button>
+</form>
+<hr>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Custom Page Name</th>
+            <th scope="col">Custom Page Link</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.staticpages.forEach(function(page) { %>
+                <tr>
+                    <td><%= page.name %></td>
+                    <td><a href="/page/<%= page.url %>"><%= page.url %></a></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/staticpage/<%= page.uniqueid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

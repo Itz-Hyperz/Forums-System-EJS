@@ -1,0 +1,32 @@
+<h3>Navigation</h3>
+<p>Alter the buttons on the navigation bar here!</p>
+<form action="/backend/add/navbutton" method="post">
+    <div class="d-flex justify-content-center" style="margin-bottom: 1em;">
+        <input type="text" name="buttonname" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em" placeholder="Button name..." required>
+        <input type="text" name="buttonlink" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em" placeholder="Button link..." required>
+    </div>
+    <button type="submit" class="btn btn-theme" style="margin-left: 1em;">Add Navigation Button</button>
+</form>
+<hr>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Button Name</th>
+            <th scope="col">Redirect URL</th>
+            <th scope="col" class="text-end">Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% navbaritems.forEach(function(navbutton) { %>
+                <tr>
+                    <td><%= navbutton.name %></td>
+                    <td><%= navbutton.link %></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/navbutton/<%= navbutton.uniqueid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>

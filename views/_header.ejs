@@ -1,0 +1,128 @@
+<!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital@1&family=Montserrat:wght@500&family=Source+Code+Pro:wght@200;300&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"><script>console.log('EJS template made by Hyperz#0001');</script>
+
+<!-- Custom Styling & Scripts -->
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.1/css/all.css">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous" defer></script>
+<style>
+  body {
+    background-color: <%= site.themefour %>;
+  }
+  .themeone {
+    background-color: <%= site.themeone %>;
+  }
+  .catborder {
+    border-color: <%= site.themeone %>;
+  }
+  .themetwo {
+    background-color: <%= site.themetwo %>;
+  }
+  .themethree {
+    background-color: <%= site.themethree %>;
+  }
+  .themefour {
+    background-color: <%= site.themefour %>;
+  }
+  .themetext, .themetext::placeholder {
+    color: <%= site.themetext %>;
+  }
+  .themetextborder {
+    border-color: <%= site.themetext %>;
+  }
+  .btn-theme {
+    background-color: transparent;
+    border-style: solid;
+    border-width: 1px;
+    border-color: <%= site.themetext %>;
+    border-radius: 0.4em;
+    color: <%= site.themetext %>;
+    transition: background-color .3s ease-in-out;
+  }
+  .btn-theme:hover, .btn-theme:focus {
+    background-color: <%= site.themetext %>;
+    color: white;
+    border-color: <%= site.themetext %>;
+  }
+  .gallery img {
+    border-color: <%= site.themetext %>;
+  }
+  .catborder:hover, .catborder:focus {
+    border-color: <%= site.themetext %>;
+  }
+  a:hover {
+    color: <%= site.themetext %>;
+  }
+  .textcolor {
+    color: <%= site.fallbacktext %>;
+  }
+  .navbar-toggler {
+    color: <%= site.themetext %>;
+    border-color: <%= site.themetext %>;
+  }
+  .accountimage {
+    background-color: <%= site.themetext %>;
+    border-color: <%= site.themetext %>;
+  }
+  .adminnav:hover, .adminnav:focus {
+    border-color: white;
+  }
+  .forumcontrol:disabled {
+    background-color: <%= site.themefour %>;
+  }
+</style>
+
+<div class="mainnavbar">
+  <nav class="navbar navbar-expand-lg themeone" style="padding: 2.6em;">
+    <div class="container">
+      <img src="/assets/logo.png" alt="navbar logo" class="navlogo">
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="searchheader themetextborder">
+          <form action="/backend/search" method="post" class="d-flex searchform" role="search">
+            <input class="searchbar themetext" type="search" name="searchbox" placeholder="Search..." aria-label="Search">
+            <button class="bg-none text-white magbutton" type="submit">
+              <i class="fa-solid fa-magnifying-glass themetext"></i>
+            </button>
+          </form>
+        </div>
+        <div class="loginheader">
+          <% if(reqdata.loggedIn) { %>
+            <a href="/account" class="btn btn-theme">Account</a>
+            <% if(reqdata.isAdmin) { %>
+              <a href="/admin" class="btn btn-theme">Admin</a>
+            <% }; %>
+          <% } else { %>
+            <a href="/auth/discord" class="btn btn-theme">Login</a>
+          <% }; %>
+        </div>
+      </div>
+    </div>
+    <br>
+  </nav>
+  <nav class="navbar navbar-expand-lg themetwo" style="padding: 1.4em;">
+    <div class="container">
+      <div class="collapse navbar-collapse oxnohide" id="navbarNav">
+        <ul class="navbar-nav oxnohide">
+          <% navbaritems.forEach(function(item) { %>
+            <li class="nav-item">
+              <a class="nav-link themetext" href="<%= item.link %>"><%= item.name %></a>
+            </li>
+          <% }); %>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <div class="notidiv themethree">
+    <p class="notification worksans"></p>
+  </div>
+</div>
+<br>
+<br>

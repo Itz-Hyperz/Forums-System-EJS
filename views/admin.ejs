@@ -1,0 +1,26 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Admin</title>
+        <meta property="og:title" content="<%= site.title %> - Admin" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <%- include('_staffheader') %>
+        <div class="container themetwo defaultborderradius" style="padding: 2em;">
+            <% if(typeof section == 'undefined') { %>
+                <%- include('_staff_none') %>
+            <% } else { %>
+                <%- include(section) %>
+            <% }; %>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - <%= certain.page.name %></title>
+        <meta property="og:title" content="<%= site.title %> - <%= certain.page.name %>" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo text-start defaultborderradius text-center" style="padding: 2em; margin-bottom: 20em;">
+            <%- certain.mardownconv %>
+        </div>
+        <% if(reqdata.isAdmin) { %>
+            <br>
+            <div class="container themetwo text-start defaultborderradius text-center" style="padding: 2em;">
+                <h3>Update Page</h3>
+                <p>You can change the content of this page below!</p>
+                <form action="/backend/update/staticpage/<%= certain.page.uniqueid %>/<%= certain.page.url %>" method="post">
+                    <div class="justify-content-center" style="margin-bottom: 1em;">
+                        <textarea name="pagecontent" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="10" placeholder="Custom Page Content (supports markdown)" required><%= certain.page.content %></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-theme">Update Static Page</button>
+                </form>
+            </div>
+        <% }; %>
+        <%- include('_footer') %>
+    </body>
+</html>

@@ -1,0 +1,123 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Forums</title>
+        <meta property="og:title" content="<%= site.title %> - Forums" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo text-start defaultborderradius" style="padding: 2em; margin-bottom: 10em;">
+            <div class="row">
+                <div class="col-9">
+                    <h2>Community Forums</h2>
+                    <p>Below you will find all available forum categories.</p>
+                </div>
+                <div class="col-3 text-end">
+                    <button type="button" class="btn btn-theme desktop" data-bs-toggle="modal" data-bs-target="#newForum" style="width: 80%; margin-left: auto; margin-right: 0;">Start New Topic</button>
+                    <button type="button" class="btn btn-theme mobile" data-bs-toggle="modal" data-bs-target="#newForum">New</button>
+                </div>
+            </div>
+            <div class="modal fade" id="newForum" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-xl">
+                  <div class="modal-content themefour">
+                    <div class="modal-header">
+                      <h5 class="modal-title" id="exampleModalLabel">New Topic</h5>
+                      <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+                    </div>
+                    <form action="/backend/add/topic" method="post">
+                        <% if(certain.categories.length > 0) { %>
+                            <div class="modal-body">
+                                <label for="topic">Select Forum</label>
+                                <select class="form-select form-select-sm themefour" id="catType" onchange="detectChange('catType')" aria-label=".form-select-sm example" name="topic" required>
+                                    <% certain.categories.forEach(function(cat) { %>
+                                        <option value="<%= cat.uniqueid %>"><%= cat.name %></option>
+                                    <% }); %>
+                                </select>
+                                <br>
+                                <label for="topic">Select Type</label>
+                                <select class="form-select form-select-sm themefour" id="appType" onchange="detectChange('appType')" aria-label=".form-select-sm example" name="type" required>
+                                    <option value="thread" selected>Thread</option>
+                                    <option value="application">Application</option>
+                                </select>
+                                <br>
+                                <label for="title">Topic Title</label>
+                                <input type="text" name="title" class="form-control form-control-sm themefour forumcontrol" placeholder="Topic title..." required>
+                                <br>
+                                <label for="description" id="desclabel">Topic Description</label>
+                                <textarea name="description" class="form-control form-control-sm themefour forumcontrol" id="description" placeholder="Topic description..." rows="3" required></textarea>
+                                <p id="askedquestions">You will recieve a questionaire after topic creation...</p>
+                                <br>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-theme">Create Topic</button>
+                            </div>
+                        <% } else { %>
+                            <br>
+                            <p class="darkertext">There are currently no categories to create a topic in...</p>
+                        <% }; %>
+                    </form>
+                  </div>
+                </div>
+            </div>
+            <hr>
+            <div class="cats">
+                <% if(certain.categories.length < 1) { %>
+                    <p class="darkertext">There are currently no forums to display...</p>
+                <% } else { %>
+                    <% certain.categories.forEach(function(category) { %>
+                        <a class="staywhite" href="/forums/c/<%= category.link %>">
+                            <div class="row themethree catlist defaultborderradius catborder">
+                                <div class="col-auto">
+                                    <img src="<%= category.imageurl %>" alt="category image" class="catimg desktop" loading="lazy">
+                                    <img src="<%= category.imageurl %>" alt="category image" class="catimg mobile" style="margin-bottom: 1em;" loading="lazy">
+                                </div>
+                                <div class="col-auto textcollol">
+                                    <h3><%= category.name %></h3>
+                                    <p><%= category.description %></p>
+                                </div>
+                            </div>
+                        </a>
+                    <% }); %>
+                <% }; %>
+            </div>
+            <hr>
+            <div class="newtopic text-center">
+                <button type="button" class="btn btn-theme" data-bs-toggle="modal" data-bs-target="#newForum">Start New Topic</button>
+            </div>
+        </div>
+        <%- include('_footer') %>
+        <script>
+            function detectChange() {
+                type = document.getElementById("appType").value;
+                textarea = document.getElementById('description');
+                label = document.getElementById('desclabel');
+                disc = document.getElementById('askedquestions');
+                if(type == "application") {
+                    textarea.required = false;
+                    textarea.style.display = "none";
+                    textarea.style.visibility = 'hidden';
+                    label.style.display = "none";
+                    label.style.visibility = 'hidden';
+                    disc.style.display = "block";
+                    disc.style.visibility = 'visible';
+                } else {
+                    textarea.required = true;
+                    textarea.style.display = "block";
+                    textarea.style.visibility = 'visible';
+                    label.style.display = "block";
+                    label.style.visibility = 'visible';
+                    disc.style.display = "none";
+                    disc.style.visibility = 'hidden';
+                };
+            };
+        </script>
+    </body>
+</html>

@@ -1,0 +1,112 @@
+<%
+    function conv(content) {
+        let ret;
+        switch(content) {
+            case 'thread':
+                ret = 'Thread';
+                break;
+            case 'application':
+                ret = 'Application';
+                break;
+        };
+        return ret;
+    };
+%>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= certain.topic.name %> - <%= conv(certain.topic.type) %></title>
+        <meta property="og:title" content="<%= certain.topic.name %> - <%= conv(certain.topic.type) %>" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%- certain.topic.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%- certain.topic.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo text-start defaultborderradius" style="padding: 2em;">
+            <p><%= conv(certain.topic.type) %></p>
+            <div class="row">
+                <div class="d-flex">
+                    <div class="footerleft">
+                        <img src="/images/avatar_<%= certain.topic.userid %>.png" alt="topic image" class="catimg2 desktop" loading="lazy">
+                        <img src="/images/avatar_<%= certain.topic.userid %>.png" alt="topic image" class="catimg2 mobile" style="margin-bottom: 1em;" loading="lazy">
+                    </div>
+                    <div class="footerright text-end">
+                        <% if(reqdata.isAdmin) { %>
+                            <% if(certain.topic.pinned) { %>
+                                <a style="color: red; margin-top: 0.2em; font-size: 1.5em; margin-right: 0.5em;" href="/backend/unpin/<%= certain.topic.link %>"><i class="fa-solid fa-thumbtack"></i></a>
+                            <% } else { %>
+                                <a style="margin-top: 0.2em; font-size: 1.5em; margin-right: 0.5em;" href="/backend/pin/c/<%= certain.topic.catid %>/t/<%= certain.topic.link %>"><i class="fa-solid fa-thumbtack"></i></a>
+                            <% }; %>
+                            <a href="/backend/delete/topic/<%= certain.topic.link %>" style="margin-top: 0.2em; font-size: 1.5em;">
+                                <i class="fa-solid fa-trash"></i>
+                            </a>
+                        <% }; %>
+                        <p style="margin-top: 0.2em; font-size: 1.2em;"><%= certain.topic.usertag %></p>
+                        <h5 class="desktop" style="margin-left: auto; margin-right: 0;"><%= certain.topic.datetime %></h5>
+                        <h5 class="mobile" style="font-size: 0.7em; margin-left: 11em;"><%= certain.topic.datetime %></h5>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <h2><%= certain.topic.name %></h2>
+            <hr>
+            <p><%- certain.formatteddescription %></p>
+        </div>
+        <br>
+        <div class="container themetwo text-start defaultborderradius" style="padding: 2em;">
+            <h2>Comments</h2>
+            <p>View what other users have to say about this <%= certain.topic.type %>.</p>
+            <br>
+            <% if(certain.comments.length > 0) { %>
+                <% certain.comments.forEach(function(comment) { %>
+                    <div class="commentdiv catlist2 defaultborderradius catborder">
+                        <div class="row">
+                            <div class="d-flex">
+                                <div class="footerleft">
+                                    <img src="/images/avatar_<%= comment.userid %>.png" alt="topic image" class="catimg2 desktop" loading="lazy">
+                                    <img src="/images/avatar_<%= comment.userid %>.png" alt="topic image" class="catimg2 mobile" style="margin-bottom: 1em;" loading="lazy">
+                                </div>
+                                <div class="footerright text-end">
+                                    <% if(reqdata.isAdmin) { %>
+                                        <a href="/backend/delete/comment/<%= comment.uniqueid %>" style="margin-top: 0.2em;">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    <% }; %>
+                                    <p style="margin-top: 0.2em;"><%= comment.usertag %></p>
+                                    <h6 class="desktop" style="margin-left: auto; margin-right: 0;"><%= comment.datetime %></h6>
+                                    <h6 class="mobile" style="font-size: 0.7em; margin-left: 7em;"><%= comment.datetime %></h6>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <p><%- comment.content %></p>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="darkertext">There are no comments to display at this time...</p>
+            <% }; %>
+        </div>
+        <br>
+        <div class="container themetwo text-start defaultborderradius" style="padding: 2em;">
+            <h2>Add Comment</h2>
+            <p>Enter a comment below this message.</p>
+            <% if(reqdata.loggedIn) { %>
+                <form action="/backend/comment/add/<%= certain.topic.link %>" method="post">
+                    <textarea class="comment defaultborderradius themetextborder" name="commentfield" rows="10" placeholder="Enter your comment message here..." required></textarea>
+                    <br>
+                    <div class="commentbuttons">
+                        <button type="submit" class="btn btn-theme">Submit Comment</button>
+                    </div>
+                </form>
+            <% } else { %>
+                <p class="darkertext">You must be logged in to add a comment...</p>
+            <% }; %>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

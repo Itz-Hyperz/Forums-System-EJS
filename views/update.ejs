@@ -1,0 +1,35 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Update</title>
+        <meta property="og:title" content="<%= site.title %> - Update" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo defaultborderradius" style="padding: 2em;">
+            <h2>Update: <%= certain.forum.name %></h2>
+            <hr>
+            <form action="/backend/update/forumcat/<%= certain.forum.uniqueid %>" method="post">
+                <div class="d-flex justify-content-center" style="margin-bottom: 1em;">
+                    <input value="<%= certain.forum.name %>" type="text" name="forumname" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em;" placeholder="Forum name... (Ex: Resources)" required>
+                    <input value="<%= certain.forum.link %>" type="text" name="forumlink" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 45%; margin-left: 0.5em; margin-right: 0.5em;" placeholder="Forum link... (Ex: resources)" required>
+                </div>
+                <div class="justify-content-center" style="margin-bottom: 1em;">
+                    <input value="<%= certain.forum.imageurl %>" type="text" name="forumimageurl" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" placeholder="Forum image link... (must end in .png or .jpg)" required>
+                    <textarea name="forumdesc" class="form-control themefour defaultborderradius forumcontrol text-center" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="5" placeholder="Forum description..." required><%= certain.forum.description %></textarea>
+                    <textarea name="forumplaceholder" class="form-control themefour defaultborderradius forumcontrol text-start" style="width: 91%; margin-left: auto; margin-right: auto; margin-bottom: 1em;" rows="3" placeholder="Forum placeholder..."><%= certain.forum.placeholder %></textarea>
+                </div>
+                <a href="/admin/forums" class="btn btn-outline-danger">Cancel</a>
+                <button type="submit" class="btn btn-theme" style="margin-left: 0.2em;">Save Changes</button>
+            </form>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

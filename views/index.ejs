@@ -1,0 +1,146 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Home</title>
+        <meta property="og:title" content="<%= site.title %> - Home" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container">
+            <img src="/assets/banner.png" alt="banner image" class="homebanner" loading="lazy">
+            <div class="homedesc text-center">
+                <%- certain.content %>
+            </div>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-auto">
+                    <div class="themetwo homegroup defaultborderradius">
+                        <h3 class="themetext">Events</h3>
+                        <hr>
+                        <% if(certain.events.length > 0) { %>
+                            <ul class="homeul text-start">
+                                <%
+                                    let listcount = 0;
+                                    certain.events.forEach(function(event) {
+                                        listcount = listcount + 1;
+                                        if(listcount < 7) {
+                                %>
+                                    <li class="homelist">
+                                        <a href="<%= event.link %>"><%= event.name.slice(0, 19) %>...</a>
+                                    </li>
+                                <%
+                                        };
+                                    });
+                                %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No events to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themetwo homegroup defaultborderradius">
+                        <h3 class="themetext">Birthdays</h3>
+                        <hr>
+                        <% if(certain.birthdays.length > 0) { %>
+                            <ul class="homeul text-start">
+                                <%
+                                    let listcount2 = 0;
+                                    certain.birthdays.forEach(function(birthday) {
+                                        listcount2 = listcount2 + 1;
+                                        if(listcount2 < 7) {
+                                %>
+                                    <li class="homelist">
+                                        <a href="/account/<%= birthday.userid %>"><%= birthday.usertag.slice(0, 19) %>...</a>
+                                    </li>
+                                <%
+                                        };
+                                    });
+                                %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No birthdays to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themetwo homegroup defaultborderradius">
+                        <h3 class="themetext">Statistics</h3>
+                        <hr>
+                        <h5>Website Members</h5>
+                        <h6><%= certain.websiteMembers %></h6>
+                        <hr>
+                        <h5>Topic Count</h5>
+                        <h6><%= certain.topicCount %></h6>
+                        <hr>
+                        <p style="font-size: 0.8em;"><em>Updates on every refresh...</em></p>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <div class="themetwo homegroup defaultborderradius">
+                        <h3 class="themetext">Socials</h3>
+                        <hr>
+                        <% if(certain.socials.length > 0) { %>
+                            <ul class="homeul text-start">
+                                <%
+                                    let listcount3 = 0;
+                                    certain.socials.forEach(function(social) {
+                                        listcount3 = listcount3 + 1;
+                                        if(listcount3 < 7) {
+                                %>
+                                    <li class="homelist">
+                                        <a href="<%= social.link %>"><%= social.name.slice(0, 19) %></a>
+                                    </li>
+                                <%
+                                        };
+                                    });
+                                %>
+                            </ul>
+                        <% } else { %>
+                            <p class="darkertext">No socials to display...</p>
+                        <% }; %>
+                    </div>
+                </div>
+            </div>
+            <br>
+            <div class="container justify-content-center gallery themetwo defaultborderradius">
+                <h3 class="themetext">Gallery Images</h3>
+                <br>
+                <div class="row justify-content-center">
+                    <% if(certain.gallery.length > 0) { %>
+                        <% certain.gallery.forEach(function(datimg) { %>
+                            <div class="col-sm-3">
+                                <button type="button" style="background-color: transparent; border: none;" data-bs-toggle="modal" data-bs-target="#<%= datimg.pass %>">
+                                    <img src="<%= datimg.link %>" loading="lazy">
+                                </button>
+                                <div class="modal fade" id="<%= datimg.pass %>" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                      <div class="modal-content themefour">
+                                        <div class="modal-body">
+                                            <img src="<%= datimg.link %>" loading="lazy">
+                                        </div>
+                                        <div class="modal-footer">
+                                            <a href="<%= datimg.link %>" target="_blank" class="btn btn-theme">View Original</a>
+                                            <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Close</button>
+                                        </div>
+                                      </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <% }); %>
+                    <% } else { %>
+                        <p class="darkertext">There are currently no gallery images to display at this time...</p>
+                    <% }; %>
+                </div>
+            </div>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

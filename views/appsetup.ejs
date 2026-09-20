@@ -1,0 +1,32 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Update</title>
+        <meta property="og:title" content="<%= site.title %> - Update" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo defaultborderradius" style="padding: 2em;">
+            <h2>Application Creation</h2>
+            <hr>
+            <form action="/backend/add/topicapp/<%= certain.category.uniqueid %>" method="post">
+                <label for="apptitle">Topic Title</label>
+                <input type="text" name="title" class="form-control form-control-sm themefour forumcontrol text-center" placeholder="Topic title..." value="<%= certain.title %>" required>
+                <br>
+                <label for="description" id="desclabel">Application:</label>
+                <textarea name="description" class="form-control form-control-sm themefour forumcontrol" id="description" placeholder="Application description..." rows="12" required><%= certain.category.placeholder %></textarea>
+                <br>
+                <a class="btn btn-outline-danger" href="/forums" style="margin-left: 0.2em; margin-right: 0.2em;">Cancel Application</a>
+                <button type="submit" class="btn btn-theme" style="margin-left: 0.2em; margin-right: 0.2em;">Create Application</button>
+            </form>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

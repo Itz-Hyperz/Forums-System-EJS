@@ -1,0 +1,32 @@
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><%= site.title %> - Activity</title>
+        <meta property="og:title" content="<%= site.title %> - Activity" />
+        <link rel="icon" href="/assets/logo.png">
+        <meta property="og:image" content="/assets/logo.png">
+        <meta name="theme-color" content="<%= site.themetext %>">
+        <meta name="description" content="<%= site.description %>" />
+        <meta property="og:type" content="website" />
+        <meta property="og:description" content="<%= site.description %>" />
+    </head>
+    <body>
+        <%- include('_header') %>
+        <div class="container themetwo text-start defaultborderradius" style="padding: 2em; margin-bottom: 13em;">
+            <h2>All Activity</h2>
+            <p>Below you will be able to view all community activity.</p>
+            <br>
+            <% if(certain.auditlogs.length > 0) { %>
+                <% certain.auditlogs.forEach(function(log) { %>
+                    <div class="auditlog themeone defaultborderradius" style="padding: 1em; margin-bottom: 0.4em;">
+                        <p style="margin-bottom: 0; padding-bottom: 0;"><b><%= log.datetime %> |</b> <%- log.content %>...</p>
+                    </div>
+                <% }); %>
+            <% } else { %>
+                <p class="darkertext">There is no community activity to display...</p>
+            <% }; %>
+        </div>
+        <%- include('_footer') %>
+    </body>
+</html>

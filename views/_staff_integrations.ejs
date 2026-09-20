@@ -1,0 +1,35 @@
+<h3>Integrations</h3>
+<p>You can manage all community integrations here!</p>
+<hr>
+<h4>API Management <a href="https://docs.hyperz.net/c/products/boardsapi" target="_blank" class="themetext"><i class="fa-solid fa-circle-question"></i></a></h4>
+<p style="margin-bottom: 0; padding-bottom: 0;">Add and remove API keys here!</p>
+<small class="text-warning">Only site owners can manage this category...</small>
+<br>
+<a href="/backend/apikey/generate" class="btn btn-theme" style="margin-bottom: 1em; margin-top: 1em;">Generate New Key</a>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">API Key</th>
+            <th scope="col">Unique Id</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.apikeys.forEach(function(apikey) { %>
+                <tr>
+                    <td><p class="filterHide"><%= apikey.apikey %></p></td>
+                    <td><p class="filterHide"><%= apikey.uniqueid %></p></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/apikey/delete/<%= apikey.uniqueid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h4>3rd Party Integrations</h4>
+<p style="margin-bottom: 0; padding-bottom: 0;">You can manage all 3rd party integrations below!</p>
+<small class="text-warning">Only site owners can manage this category...</small>
+<p class="darkertext" style="margin-top: 2em;">This section is not yet available...</p>

@@ -1,0 +1,214 @@
+<h3>Community Management</h3>
+<p>Manage the default community settings here!</p>
+<hr>
+<form action="/backend/update/community" method="post">
+    <div class="form-group">
+        <label for="name">Site Logo (must end with PNG)</label>
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="sitelogo" placeholder="Enter an image url..." value="<%= d %>assets/logo.png" required>
+        <br>
+        <label for="name">Site Banner (must end with PNG)</label>
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="sitebanner" placeholder="Enter an image url..." value="<%= d %>assets/banner.png" required>
+        <br>
+        <hr>
+        <br>
+        <label for="name">Site Name (embeds / SEO)</label>
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="sitename" placeholder="Enter a site name..." value="<%= certain.settings.sitename %>" required>
+        <br>
+        <label for="name">Site Description (embeds / SEO)</label>
+        <textarea name="sitedesc" class="form-control themefour text-center defaultborderradius forumcontrol" placeholder="Enter a site description..." rows="4" required><%= certain.settings.sitedesc %></textarea>
+        <br>
+        <label for="name">Homepage Description (supports markdown)</label>
+        <textarea name="homeabout" class="form-control themefour text-center defaultborderradius forumcontrol" placeholder="Enter a homepage description..." rows="4" required><%= certain.settings.homeabout %></textarea>
+        <br>
+        <button type="submit" class="btn btn-theme">Save All Changes</button>
+    </div>
+</form>
+<hr>
+<h4>Gallery Management</h4>
+<p>Add and remove images from the gallery!</p>
+<form action="/backend/add/gallery" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="imageurl" placeholder="Enter an Image URL..." required>
+        <br>
+        <button type="submit" class="btn btn-theme">Add Gallery Image</button>
+    </div>
+</form>
+<br>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Gallery Image URL</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.gallery.forEach(function(image) { %>
+                <tr>
+                    <td><a href="<%= image.link %>" target="_blank"><%= image.link %></a></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/gallery/<%= image.pass %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h4>Event Management</h4>
+<p>Add and remove community events here!</p>
+<form action="/backend/add/event" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="eventname" placeholder="Enter an event name..." required>
+        <br>
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="eventlink" placeholder="Enter an event link..." required>
+        <br>
+        <button type="submit" class="btn btn-theme">Create Event</button>
+    </div>
+</form>
+<br>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Event Name</th>
+            <th scope="col">Event Link</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.events.forEach(function(event) { %>
+                <tr>
+                    <td><%= event.name %></td>
+                    <td><a href="<%= event.link %>" target="_blank"><%= event.link %></a></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/event/<%= event.uniqueid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h4>Social Management</h4>
+<p>Add and remove social links here!</p>
+<form action="/backend/add/social" method="post">
+    <div class="form-group">
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="socialname" placeholder="Enter a social name..." required>
+        <br>
+        <input type="text" class="form-control themefour text-center defaultborderradius forumcontrol" name="sociallink" placeholder="Enter a social link..." required>
+        <br>
+        <button type="submit" class="btn btn-theme">Create Social</button>
+    </div>
+</form>
+<br>
+<div class="customDiv">
+    <table class="table table-bordered border-gray text-white">
+        <thead>
+          <tr>
+            <th scope="col">Social Name</th>
+            <th scope="col">Social Link</th>
+            <th scope="col" class="text-end">Options</th>
+          </tr>
+        </thead>
+        <tbody>
+            <% certain.socials.forEach(function(social) { %>
+                <tr>
+                    <td><%= social.name %></td>
+                    <td><a href="<%= social.link %>" target="_blank"><%= social.link %></a></td>
+                    <td class="text-end">
+                        <a class="btn btn-outline-danger btn-sm" href="/backend/delete/social/<%= social.uniqueid %>">Delete</a>
+                    </td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+</div>
+<hr>
+<h4>Website Data Management</h4>
+<p>Purge and reset all stored data here!</p>
+<p style="color: red;">WARNING: This action cannot be undone!</p>
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#confirmPurgeUsers" class="btn btn-outline-warning" style="margin-top: 0.4em; margin-left: 0.4em; margin-right: 0.4em;">Purge Users</button>
+<div class="modal fade" id="confirmPurgeUsers" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content themefour">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+          <a href="/backend/purge/users" class="btn btn-warning">Yes, I'm sure</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#confirmPurgeCategories" class="btn btn-outline-warning" style="margin-top: 0.4em; margin-left: 0.4em; margin-right: 0.4em;">Purge Categories</button>
+<div class="modal fade" id="confirmPurgeCategories" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content themefour">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+          <a href="/backend/purge/categories" class="btn btn-warning">Yes, I'm sure</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#confirmPurgeTopics" class="btn btn-outline-warning" style="margin-top: 0.4em; margin-left: 0.4em; margin-right: 0.4em;">Purge Topics</button>
+<div class="modal fade" id="confirmPurgeTopics" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content themefour">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+          <a href="/backend/purge/topics" class="btn btn-warning">Yes, I'm sure</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<button type="button" data-bs-toggle="modal" data-bs-target="#confirmPurgeComments" class="btn btn-outline-warning" style="margin-top: 0.4em; margin-left: 0.4em; margin-right: 0.4em;">Purge Comments</button>
+<div class="modal fade" id="confirmPurgeComments" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content themefour">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+          <a href="/backend/purge/comments" class="btn btn-warning">Yes, I'm sure</a>
+        </div>
+      </div>
+    </div>
+</div>
+
+<br>
+<button type="button" data-bs-toggle="modal" data-bs-target="#confirmPurgeAll" class="btn btn-outline-danger" style="margin-top: 1em;">Reset & Delete Everything</button>
+<div class="modal fade" id="confirmPurgeAll" tabindex="-1" aria-labelledby="confirmModal" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content themefour">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+          <button type="button" class="timesbutton text-white" data-bs-dismiss="modal" aria-label="Close">&times;</button>
+        </div>
+        <div class="modal-body text-start">
+            <p style="margin-bottom: 0; padding-bottom: 0;">You are about to purge and reset everything!</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cancel</button>
+          <a href="/backend/purge/all" class="btn btn-warning">Yes, I'm sure</a>
+        </div>
+      </div>
+    </div>
+</div>
